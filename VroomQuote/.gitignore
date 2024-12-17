@@ -2,3 +2,4 @@ build.sh
 bin/
 .vscode/
 README.md
+templates/

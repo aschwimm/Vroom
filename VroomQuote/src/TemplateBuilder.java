@@ -1,40 +1,52 @@
-import java.io.*;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class TemplateBuilder {
-    @SuppressWarnings("CallToPrintStackTrace")
+    private static Map<String, String> templateMap;
+
     public static void buildTemplate() {
-        File templateFile;
-        StringBuilder template;
+        templateMap = TemplateMap.loadMap();
+        String line;
         try (Scanner scnr = new Scanner(System.in)) {
-            templateFile = new File("templates/template.html");
-            String line;
-            template = new StringBuilder();
-            template.append("<!DOCTYPE html>\n<html>\n<head>\n<title>Dynamic Table</title>\n</head>\n<body>\n");
-            template.append("<table border=\"1\" style=\"width:50%; text-align:left;\">\n");
-            template.append("<tr><th>Column 1</th><th>Column 2</th></tr>\n");
-            while(true) {
-                line = scnr.nextLine();
-                if(line.equalsIgnoreCase("end")) {
-                    break;
+            if(templateMap.isEmpty()) {
+                System.out.println("Template is empty. Create a template. Enter 'end' to end.");
+                while (true) { 
+                    line = scnr.nextLine();
+                    if(line.equalsIgnoreCase("end")) {
+                        break;
+                    }
+                    templateMap.put(line, null);
                 }
-                template.append("\t<tr><td>");
-                String placeholder = String.format("{{%s}}", line);
-                template.append(placeholder);
-                template.append("</td>\n");
-                template.append("\t<td>");
-                template.append("{{VALUE}}");
-                template.append("</td></tr>\n");
-
+                TemplateMap.saveHashMap(templateMap);
+            } else {
+                System.out.println("Template exists. Override? [y/N]");
+                String input = scnr.nextLine().toLowerCase();
+                char charInput = input.charAt(0);
+                switch(charInput) {
+                    case 'y' ->  {
+                        templateMap = new LinkedHashMap<>();
+                        while (true) { 
+                            line = scnr.nextLine();
+                            if(line.equalsIgnoreCase("end")) {
+                                break;
+                            }
+                            templateMap.put(line, null);
+                        }
+                        TemplateMap.saveHashMap(templateMap);
+                    }
+                    case 'n' ->  {
+                        templateMap = TemplateMap.loadMap();
+                    }
+                    default -> System.out.println("ERROR: Invalid input");
+                }
             }
-            template.append("</table></body>\n</html>");
-
         }
-        try(BufferedWriter writer = new BufferedWriter(new FileWriter(templateFile))) {
-            writer.write(template.toString());
-            writer.close();
-        } catch(IOException e) {
-            e.printStackTrace();
+        for(Map.Entry<String,String> entry: templateMap.entrySet()) {
+            System.out.print(entry.getKey() + " ");
+            System.out.print(entry.getValue() + " ");
+            System.out.println();
         }
+        
     }
 }

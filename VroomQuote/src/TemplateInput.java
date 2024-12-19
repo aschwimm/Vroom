@@ -6,8 +6,10 @@ import java.util.Scanner;
 @SuppressWarnings("CallToPrintStackTrace")
 public class TemplateInput {
     private static int fileCounter = 0;
+    @SuppressWarnings("FieldMayBeFinal")
         private static LinkedHashMap<String, String> template = new LinkedHashMap<>();
         
+        @SuppressWarnings("resource")
         public static void inputValues() {
             Scanner scnr = new Scanner(System.in);
             File templateFile = new File("templates/template_map.ser");

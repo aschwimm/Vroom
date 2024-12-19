@@ -5,10 +5,11 @@ import java.util.Scanner;
 public class TemplateBuilder {
     private static Map<String, String> templateMap;
 
+    @SuppressWarnings("resource")
     public static void buildTemplate() {
         templateMap = TemplateMap.loadMap();
         String line;
-        try (Scanner scnr = new Scanner(System.in)) {
+        Scanner scnr = new Scanner(System.in); 
             if(templateMap.isEmpty()) {
                 System.out.println("Template is empty. Create a template. Enter 'end' to end.");
                 while (true) { 
@@ -42,11 +43,5 @@ public class TemplateBuilder {
                 }
             }
         }
-        for(Map.Entry<String,String> entry: templateMap.entrySet()) {
-            System.out.print(entry.getKey() + " ");
-            System.out.print(entry.getValue() + " ");
-            System.out.println();
-        }
         
     }
-}

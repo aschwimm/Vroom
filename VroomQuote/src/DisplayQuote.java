@@ -5,10 +5,10 @@ import java.io.ObjectInputStream;
 import java.util.Map;
 
 public class DisplayQuote {
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked", "CallToPrintStackTrace"})
     public static void display() {
-        File quoteDir = new File("quotes");
-        File[] quotes = quoteDir.listFiles();
+        File quoteDir = new File("quotes/");
+        File[] quotes = quoteDir.listFiles((file) -> file.isFile());
         for(File quote : quotes) {
             System.out.println("\n" + quote + "\n---------");
             try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(quote))) {

@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class DisplayQuote {
     @SuppressWarnings("unchecked")
-    public static void displayQuote() {
+    public static void display() {
         File quoteDir = new File("quotes");
         File[] quotes = quoteDir.listFiles();
         for(File quote : quotes) {

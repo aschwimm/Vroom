@@ -1,4 +1,6 @@
+package main;
 
+import render.DisplayQuote;
 
 public class QuoteApp {
     public static void main(String[] args) {

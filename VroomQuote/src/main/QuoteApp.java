@@ -18,6 +18,9 @@ public class QuoteApp {
                 case 'v':
                     DisplayQuote.display();
                     break;
+                case 'b':
+                    HTMLBuilder.buildHTML();
+                    break;
                 case 'q':
                     System.out.println("Exiting...");
                     System.exit(0);

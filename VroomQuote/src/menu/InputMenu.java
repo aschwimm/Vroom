@@ -6,6 +6,7 @@ public class InputMenu {
         System.out.println("t - Create template");
         System.out.println("n - New quote");
         System.out.println("v - View quote");
+        System.out.println("b - Build HTML page with quote");
         System.out.println("q - Quit");
         
     }

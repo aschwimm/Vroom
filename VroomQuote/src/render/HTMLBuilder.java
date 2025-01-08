@@ -13,6 +13,7 @@ public class HTMLBuilder {
         StringBuilder template;
         Scanner scnr = new Scanner(System.in); 
         File templateFile = selectQuote(scnr);
+        String quoteFilename = templateFile.getName();
         Map<String, String> templateHash = new LinkedHashMap<>();
         try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(templateFile))) {
             @SuppressWarnings("unchecked")
@@ -35,11 +36,11 @@ public class HTMLBuilder {
         }
         template.append("</table></body>\n</html>");
 
-        saveQuote(template.toString());
+        saveQuote(template.toString(), quoteFilename);
     }
-    private static void saveQuote(String quote) {
+    private static void saveQuote(String quote, String filename) {
         counterInit();
-        String fileName = String.format("quotes/HTMLPages/quote_%d.html", fileCounter);
+        String fileName = "quotes/HTMLPages/" + filename + ".html";
         File file = new File(fileName);
         try(BufferedWriter br = new BufferedWriter(new FileWriter(file))) {
             br.write(quote);
